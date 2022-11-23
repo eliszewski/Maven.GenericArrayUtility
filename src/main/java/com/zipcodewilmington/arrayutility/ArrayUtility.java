@@ -27,28 +27,25 @@ public class ArrayUtility<T> {
 
         return getNumberOfOccurrences(valueToEvaluate) + getNumberOfOccurrences(arrayToMerge, valueToEvaluate);
     }
+    class Converter {
+        public   T[] toArray(List<T> list) {
+            T[] newArr = (T[]) Array.newInstance(list.get(0).getClass(), list.size());
+            for (int i = 0; i < list.size(); i++) {
+                newArr[i] = list.get(i);
+            }
+            return newArr;
+        }
+    }
 
     public T[] removeValue(T valueToRemove) {
         List<T> removedList = new ArrayList<>();
-//        Class<?> clas = valueToRemove.getClass();
-//        Integer len = this.inputArray.length;
-//        T[] removed = (T[]) Array.newInstance(clas,len - getNumberOfOccurrences(valueToRemove));
         for (T element : this.inputArray
              ) {
             if(!element.equals(valueToRemove)) removedList.add(element);
         }
-        int counter = 0;
-//        for (T element: this.inputArray
-//             ) {
-//            if(element.equals(valueToRemove)){
-//                removed[counter] = element;
-//                counter++;
-//            }
-//        }
-        //return removedList.toArray(Array.newInstance [0]);
-        //return removed;
-        this.inputArray = removedList.toArray((T[])Array.newInstance(this.inputList.getClass().getComponentType(), removedList.size()));
-        return this.inputArray;
+        System.out.println(removedList);
+        Converter convert = new Converter();
+        return convert.toArray(removedList);
     }
 
     public T getMostCommonFromMerge(T[] arrayToMerge) {
